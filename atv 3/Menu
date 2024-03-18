@@ -1,0 +1,53 @@
+function exibirMenu(){
+    console.log("Menu");
+    console.log("Aperte 1 para verificar o seu saldo");
+    console.log("Aperte 2 para realizar um saque");
+    console.log("Aperte 3 para realizar um depósito");
+    console.log("Aperte 4 para fazer uma transferencia");
+    console.log("Aperte 5 para checar o cheque especial");
+    console.log("Aperte 6 para atualizar o seu cadastro");
+    console.log("Aperte 7 para ver o seu limite de crédito");
+    console.log("Aperte 8 para cancelar a operação!")
+}
+
+function escolherOpcao(opcoes){
+    switch (opcoes){
+    case '1':
+        console.log("Você escolheu verificar o seu saldo");
+        break;
+    case '2':
+        console.log("você escolheu realizar um saque");
+        break;
+    case '3':
+        console.log("Você escolheu realizar um depósito");
+        break;
+    case '4':
+        console.log("Você escolheu fazer uma transferencia");
+        break;
+    case '5':
+        console.log("Você escolheu checar seu cheque especia");
+        break;
+    case '6':
+        console.log("Você escolheu atualizar o seu cadastro");
+        break;
+    case '7':
+        console.log("Você escolheu ver o limite do seu cheque especial.")
+        break;
+    case '8':
+        console.log("cancelar a operação.")
+        break;
+    default:
+    console.log("Opção inválida, escolha novamente.")
+    }
+}
+
+function main(){
+    let opcoes;
+    do{
+        exibirMenu();
+        opcoes = prompt("Escolha a opção que você deseja: ");
+        escolherOpcao(opcoes);
+    } while(opcoes != 8);
+}
+
+main();
