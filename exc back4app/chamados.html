@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar Chamados</title>
+</head>
+<body>
+    <h1>Visualizar Chamados</h1>
+
+    <div id="chamados">
+        
+    </div>
+
+    <script>
+        fetch('https://parseapi.back4app.com/classes/chamado', {
+            headers: {
+                'X-Parse-Application-Id': 'h0t6fw17vXyvfqMYcZjJV8wvMEDNRy4QWm3YJDX3',
+                'X-Parse-REST-API-Key': 'CxodBH7fnayMX7CtMZtkb78svENJ4j9wLHvH9Qgy'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const chamadosDiv = document.getElementById('chamados');
+            data.results.forEach(chamado => {
+                const chamadoDiv = document.createElement('div');
+                chamadoDiv.innerHTML = `
+                    <h3>${chamado.assunto}</h3>
+                    <p><strong>Nome:</strong> ${chamado.Nome}</p>
+                    <p><strong>E-mail:</strong> ${chamado.Email}</p>
+                    <p><strong>Mensagem:</strong> ${chamado.mensagem}</p>
+                    <p><strong>Finalizado:</strong> ${chamado.finalizado ? 'Sim' : 'Não'}</p>
+                    <label for="resposta_${chamado.objectId}">Resposta:</label><br>
+                    <textarea id="resposta_${chamado.objectId}"></textarea><br>
+                    <button onclick="responderChamado('${chamado.objectId}')">Responder e Finalizar</button>
+                `;
+                chamadosDiv.appendChild(chamadoDiv);
+            });
+        })
+        .catch(error => {
+            console.error('Erro ao buscar os chamados:', error);
+            alert('Ocorreu um erro ao buscar os chamados. Por favor, tente novamente mais tarde.');
+        });
+
+        function responderChamado(chamadoId) {
+            const resposta = document.getElementById(`resposta_${chamadoId}`).value;
+            
+            const data = {
+                resposta: resposta,
+                finalizado: true 
+            };
+
+            fetch(`https://parseapi.back4app.com/classes/chamado/${chamadoId}`, {
+                method: 'PUT',
+                headers: {
+                    'X-Parse-Application-Id': 'h0t6fw17vXyvfqMYcZjJV8wvMEDNRy4QWm3YJDX3',
+                    'X-Parse-REST-API-Key': 'CxodBH7fnayMX7CtMZtkb78svENJ4j9wLHvH9Qgy',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Resposta enviada e chamado finalizado com sucesso!');
+                
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error('Erro ao responder o chamado:', error);
+                alert('Ocorreu um erro ao responder o chamado. Por favor, tente novamente mais tarde.');
+            });
+        }
+    </script>
+</body>
+</html>
