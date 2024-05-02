@@ -3,17 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Previsão do Tempo e CEP</title>
-    
-    <script src="cep.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="cepEcidade.js" defer></script>
 </head>
 <body>
     <h2>Consulte o CEP</h2>
     <input type="text" id="cepInput" placeholder="Exemplo: 51130030">
     <button id="buscarCEP" onclick="fetchEndereco()">Buscar CEP</button>
     <div id="endereco">Digite um CEP e clique em buscar</div>
-    <h2>Consulte a Previsão do Tempo</h2>
-    <input type="text" id="cidadeInput" placeholder="Digite o nome da cidade">
-    <button id="buscarClimaBtn">Buscar Clima</button>
     <div id="clima"></div>
 
    
